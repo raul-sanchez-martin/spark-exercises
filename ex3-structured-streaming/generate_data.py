@@ -17,6 +17,7 @@ def get_word():
     "Returns a random word from a list"
     
     list_words = ["Spark", "Hadoop", "Python", "Scala", "Java", "Mesos"]
+    list_words = ["Spark", "Hadoop"]
     
     return random.choice(list_words)
 
@@ -40,16 +41,16 @@ def generate_data(folder):
     
     delete_files_folder(folder)
     
-    time_delta = timedelta(seconds=10)
+    time_delta = 1
     ini_date = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
     num_data = 10
     
     for idx in range(100):
         print("Generating File: Iteration: {0}".format(idx))
         csv_name = os.path.join(folder, "file_{0}.csv".format(idx))
-        df, ini_date = generate_df(ini_date, 10, time_delta)
+        df, ini_date = generate_df(ini_date, num_data, timedelta(seconds=time_delta))
         df.to_csv(csv_name, index=False, sep=",")
-        time.sleep(10)
+        time.sleep(num_data*time_delta)
         
 if __name__=="__main__":
     generate_data("../data/streaming")
